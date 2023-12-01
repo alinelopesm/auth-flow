@@ -5,6 +5,10 @@ on:
     branches:
       - staging  # ou o nome da sua branch principal
       - main  # ou o nome da sua branch principal
+  pull_request:
+    branches:
+      - staging
+      - main
 
 jobs:
   test:
