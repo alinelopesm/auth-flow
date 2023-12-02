@@ -8,7 +8,6 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      Teste Aline 
       <LoginForm />
       <header className="App-header" />
       {isLoggedIn ? (
