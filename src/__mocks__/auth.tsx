@@ -1,16 +1,25 @@
-// __mocks__/api.ts
-export async function login(username: string, password: string): Promise<any> {
-  if (username && password) {
-    return {
-      id: 15,
-      username: 'kminchelle',
-      email: 'kminchelle@qq.com',
-      firstName: 'Jeanne',
-      lastName: 'Halvorson',
-      gender: 'female',
-      image: 'https://robohash.org/autquiaut.png?size=50x50&set=set1',
-      token: 'mocked_token'
-    };
+// src/__mocks__/auth.tsx
+import { login } from './api';
+
+const authenticate = async (username: string, password: string): Promise<boolean> => {
+  const user = await login(username, password);
+  if (user) {
+    localStorage.setItem('user', JSON.stringify(user));
+    return true;
   }
-}
-  
+  return false;
+};
+
+const logout = (): void => {
+  localStorage.removeItem('user');
+};
+
+const getUser = (): any => {
+  const user = localStorage.getItem('user');
+  if (user) {
+    return JSON.parse(user);
+  }
+  return null;
+};
+
+export { authenticate, logout, getUser };
