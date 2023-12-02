@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import './App.css';
 import { AuthContext } from '../context/AuthContext';
+import LoginForm from './form/index';
 
 const App: React.FC = () => {
   const { isLoggedIn, login, logout } = useContext(AuthContext);
@@ -8,6 +9,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       Teste Aline 
+      <LoginForm />
       <header className="App-header" />
       {isLoggedIn ? (
         <button onClick={logout}>Logout</button>
