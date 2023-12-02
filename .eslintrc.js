@@ -13,11 +13,13 @@ module.exports = {
     extends: [
       'eslint:recommended', // Conjunto de regras recomendadas do ESLint
       'plugin:react/recommended', // Regras recomendadas para projetos React
+      'plugin:@typescript-eslint/recommended', // Regras recomendadas para TypeScript
     ],
     plugins: ['react', '@typescript-eslint'],
     rules: {
       'semi': ['error', 'always'], // Ponto e vírgula ao final
       'quotes': ['error', 'single'], // Aspas simples
+      '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions', 'functions', 'methods'] }],
       // Outras regras personalizadas ou do mercado
     },
     settings: {
