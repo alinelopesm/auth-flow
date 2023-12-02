@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { login } from '../../__mocks__/auth';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -6,7 +7,17 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    handleLogin();
   };
+
+  async function handleLogin() {
+    try {
+      const response = await login('kminchelle', '0lelplR');
+      return response;
+    } catch (error) {
+      console.error('Erro durante o login:', error);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>
