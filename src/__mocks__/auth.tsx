@@ -14,10 +14,15 @@ const logout = (): void => {
   localStorage.removeItem('user');
 };
 
-const getUser = (): any => {
+interface User {
+  username: string
+  password: string
+}
+
+const getUser = (): User | null => {
   const user = localStorage.getItem('user');
   if (user) {
-    return JSON.parse(user);
+    return JSON.parse(user) as User;
   }
   return null;
 };

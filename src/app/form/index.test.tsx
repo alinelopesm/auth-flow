@@ -31,11 +31,7 @@ describe('LoginForm', () => {
 
   it('exibe erro ao submeter formulário com credenciais inválidas', async () => {
     // Mock para simular um erro na autenticação
-    const mockError = new Error('Credenciais inválidas');
     jest.spyOn(console, 'error').mockImplementation(() => {});
-
-    // Mock da função authenticate para retornar um erro
-    jest.spyOn(require('../../__mocks__/auth'), 'authenticate').mockRejectedValue(mockError);
 
     const { getByLabelText, getByText } = render(<LoginForm />);
 
@@ -52,8 +48,7 @@ describe('LoginForm', () => {
 
     // Verificar se a função authenticate foi chamada corretamente
     await waitFor(() => {
-      expect(authenticate).toHaveBeenCalledWith('kminchelle', 'senhaIncorreta');
+        expect(authenticate).toHaveBeenCalledWith('kminchelle', 'senhaIncorreta');
     });
-
   });
 });
