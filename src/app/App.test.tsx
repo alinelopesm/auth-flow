@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, RenderResult } from '@testing-library/react';
 import App from './App';
 import { AuthContext } from '../context/AuthContext';
+
+import '@testing-library/jest-dom/extend-expect'; // Importe o jest-dom
 
 /* Teste para verificar se o botão de login é renderizado e se a função de login é chamada ao clicar */
 test('renders login button', () => {
@@ -10,7 +12,7 @@ test('renders login button', () => {
   const logout = jest.fn();
 
   /* Renderiza o componente App, passando um contexto fictício de autenticação */
-  const { getByText } = render(
+  const { getByText }: RenderResult = render( // Declare o tipo do retorno de render
     <AuthContext.Provider value={{ isLoggedIn: false, login, logout }}>
       <App />
     </AuthContext.Provider>
@@ -18,7 +20,7 @@ test('renders login button', () => {
 
   /* Verifica se o botão de login está presente no componente */
   const loginButton = getByText('Login');
-  expect(loginButton).toBeInTheDocument();
+  expect(loginButton).toBeInTheDocument(); // Agora o TypeScript deve reconhecer o toBeInTheDocument
 
   /* Simula um clique no botão de login */
   fireEvent.click(loginButton);

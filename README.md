@@ -29,6 +29,14 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npx eslint .`
+
+Verify all items lint
+
+### `npx eslint --fix src`
+
+This will try to automatically fix some problems with the files inside the src directory
+
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**

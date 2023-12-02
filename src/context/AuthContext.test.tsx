@@ -1,12 +1,13 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
 import { AuthProvider, AuthContext } from './AuthContext';
+import { test, expect } from '@jest/globals';
 
 describe('AuthContext', () => {
   test('login and logout functions', () => {
-    let isLoggedIn;
-    let login;
-    let logout;
+    let isLoggedIn: boolean | undefined;
+    let login: (() => void) | undefined;
+    let logout: (() => void) | undefined;
 
     /* Renderiza o componente AuthProvider e consome o AuthContext */
     render(
@@ -28,14 +29,14 @@ describe('AuthContext', () => {
 
     /* Realiza o login e verifica se o usuário está logado */
     act(() => {
-      login();
+      login && login();
     });
 
     expect(isLoggedIn).toBe(true);
 
     /* Realiza o logout e verifica se o usuário não está logado novamente */
     act(() => {
-      logout();
+      logout && logout();
     });
 
     expect(isLoggedIn).toBe(false);

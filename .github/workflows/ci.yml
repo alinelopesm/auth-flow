@@ -1,10 +1,14 @@
-name: Run Tests
+name: Run Tests, Lint, and Build
 
 on:
   push:
     branches:
-      - staging  # ou o nome da sua branch principal
-      - main  # ou o nome da sua branch principal
+      - staging
+      - main
+  pull_request:
+    branches:
+      - staging
+      - main
 
 jobs:
   test:
@@ -24,3 +28,39 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
