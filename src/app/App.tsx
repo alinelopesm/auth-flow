@@ -13,7 +13,7 @@ const App: React.FC = () => {
       {isLoggedIn ? (
         <button onClick={logout}>Logout</button>
       ) : (
-        <button onClick={login}>Login</button>
+        <button data-testid="login" onClick={login}>Login</button>
       )}
     </div>
   );

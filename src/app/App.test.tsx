@@ -12,14 +12,14 @@ test('renders login button', () => {
   const logout = jest.fn();
 
   /* Renderiza o componente App, passando um contexto fictício de autenticação */
-  const { getByText }: RenderResult = render( // Declare o tipo do retorno de render
+  const { getByTestId }: RenderResult = render( // Declare o tipo do retorno de render
     <AuthContext.Provider value={{ isLoggedIn: false, login, logout }}>
       <App />
     </AuthContext.Provider>
   );
 
   /* Verifica se o botão de login está presente no componente */
-  const loginButton = getByText('Login');
+  const loginButton = getByTestId('login');
   expect(loginButton).toBeInTheDocument(); // Agora o TypeScript deve reconhecer o toBeInTheDocument
 
   /* Simula um clique no botão de login */

@@ -11,7 +11,7 @@ interface User {
 }
   
   export async function login(username: string, password: string): Promise<User | null> {
-    if (username && password) {
+    if (username === 'kminchelle' && password === '0lelplR') {
       return {
         id: 15,
         username: 'kminchelle',

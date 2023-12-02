@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { authenticate } from '../../__mocks__/auth';
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    handleLogin();
+    handleLogin(username, password);
   };
 
-  async function handleLogin() {
+  async function handleLogin(username: string, password: string) {
     try {
-      const response = await authenticate('kminchelle', '0lelplR');
+      const response = await authenticate(username, password);
       return response;
     } catch (error) {
       console.error('Erro durante o login:', error);
@@ -26,8 +26,8 @@ const LoginForm: React.FC = () => {
         <input
           type="text"
           id="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
       </div>
