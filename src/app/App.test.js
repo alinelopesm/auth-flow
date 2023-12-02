@@ -2,6 +2,8 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import App from './App';
 import { AuthContext } from '../context/AuthContext';
+import { test, expect } from '@jest/globals';
+
 
 /* Teste para verificar se o botão de login é renderizado e se a função de login é chamada ao clicar */
 test('renders login button', () => {

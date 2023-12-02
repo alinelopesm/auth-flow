@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
 import { AuthProvider, AuthContext } from './AuthContext';
+import { test, expect } from '@jest/globals';
 
 describe('AuthContext', () => {
   test('login and logout functions', () => {
