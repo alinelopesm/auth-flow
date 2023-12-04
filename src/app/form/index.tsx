@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authenticate } from '../../__mocks__/auth';
+import { authenticate, getUser } from '../../__mocks__/auth';
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -13,7 +13,10 @@ const LoginForm: React.FC = () => {
   async function handleLogin(username: string, password: string) {
     try {
       const response = await authenticate(username, password);
-      return response;
+      if(response) {
+        const responseUser = await getUser()
+        return responseUser;
+      }
     } catch (error) {
       console.error('Erro durante o login:', error);
     }
