@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, login, authenticateInfo } = useContext(AuthContext);
+  const { login} = useContext(AuthContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,25 +25,27 @@ const LoginForm: React.FC = () => {
   }
 
   return (
-    <div className="login-container">
-    {!isLoggedIn &&
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input
-          type="text"
-          placeholder="Username"
+    <div className="page">
+      <form method="POST" className="formLogin" onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <p>Digite os seus dados de acesso no campo abaixo.</p>
+        <label htmlFor="username">Username</label>
+        <input 
+          type="text" 
+          placeholder="Digite seu username" 
+          autoFocus={true} 
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        <label htmlFor="password">Senha</label>
         <input
-          type="password"
-          placeholder="Password"
+          type="password" 
+          placeholder="Digite sua senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <input type="submit" value="Acessar" className="btn" />
       </form>
-    }
   </div>
   );
 };
