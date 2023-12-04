@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { authenticate, getUser } from '../../__mocks__/auth';
 import UserInfo from '../user';
-import AuthInfoConstructor, { AuthInfo } from '../../types/AuthInfoType';
 import UserConstructor, { User } from '../../types/UserType';
 import './index.css';
 

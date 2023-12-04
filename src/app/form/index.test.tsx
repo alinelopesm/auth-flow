@@ -10,7 +10,7 @@ jest.mock('../../__mocks__/auth', () => ({
 
 describe('LoginForm', () => {
   it('submete o formulário com as credenciais corretas', async () => {
-    const { getByPlaceholderText, queryByText } = render(<LoginForm />);
+    const { getByPlaceholderText } = render(<LoginForm />);
 
     const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
     const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
@@ -30,7 +30,7 @@ describe('LoginForm', () => {
     // Mock para simular um erro na autenticação
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    const { getByPlaceholderText, getByText } = render(<LoginForm />);
+    const { getByPlaceholderText } = render(<LoginForm />);
 
     const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
     const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
