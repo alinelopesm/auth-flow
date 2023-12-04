@@ -1,5 +1,6 @@
 // authInfoInterface.tsx
 
+/* Interface que define a estrutura das informações de autenticação */
 interface AuthInfo {
     id: number;
     username: string;
@@ -11,5 +12,30 @@ interface AuthInfo {
     token: string;
   }
   
-  export default AuthInfo;
+  /* Construtor para criar instâncias da AuthInfo com as informações obrigatórias */
+  class AuthInfoConstructor implements AuthInfo {
+    id: number;
+    username: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    image: string;
+    token: string;
+  
+    /* O construtor recebe um objeto contendo as informações de autenticação */
+    constructor(authInfo: AuthInfo) {
+      /* Atribui os valores fornecidos às propriedades da instância */
+      this.id = authInfo.id;
+      this.username = authInfo.username;
+      this.email = authInfo.email;
+      this.firstName = authInfo.firstName;
+      this.lastName = authInfo.lastName;
+      this.gender = authInfo.gender;
+      this.image = authInfo.image;
+      this.token = authInfo.token;
+    }
+  }
+  
+  export default AuthInfoConstructor;
   
