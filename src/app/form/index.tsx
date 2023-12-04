@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { authenticate, getUser } from '../../__mocks__/auth';
+import UserInfo from '../user';
+import './index.css';
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,6 +18,8 @@ const LoginForm: React.FC = () => {
       const response = await authenticate(username, password);
       if(response) {
         const responseUser = await getUser()
+
+        setIsLoggedIn(true);
         return responseUser;
       }
     } catch (error) {
@@ -23,29 +28,28 @@ const LoginForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username:</label>
+    <div className="login-container">
+    {!isLoggedIn ? (
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Login</h2>
         <input
           type="text"
-          id="username"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
         />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
         <input
           type="password"
-          id="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+        <button type="submit">Login</button>
+      </form>
+    ) : (
+      <UserInfo username={username} />
+    )}
+  </div>
   );
 };
 
