@@ -14,7 +14,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ userInfo, authInfo }) => {
     user && (
       <div className="user-info-container">
         <div className="user-info">
-          <h2 className="card-title">Informações do Usuário</h2> {/* Título adicionado */}
+          <h2 className="card-title">Informações do Usuário</h2>
           <div className="user-details">
             <div className="user-avatar">
               {user.image ? (

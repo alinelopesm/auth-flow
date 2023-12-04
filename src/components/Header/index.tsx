@@ -14,10 +14,10 @@ const HeaderContent: React.FC = () => {
   return (
     <div className="header">
       <Link to="/" className="logo">Boas vindas!!</Link>
-      <div className="user-info">
+      <div className="user-info-header">
         {isLoggedIn ? (
           <>
-            <span className="username">{authenticateInfo?.username}</span>
+            <span className="username">Olá, {authenticateInfo?.username}</span>
             <button className="login-link" onClick={logout}>Logout</button>
           </>
         ) : (
