@@ -5,7 +5,7 @@ import Struct from '../../components/Structure/Struct';
 import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const { isLoggedIn, authenticateInfo, logout} = useContext(AuthContext);
+  const { isLoggedIn, authenticateInfo } = useContext(AuthContext);
 
   return (
     <Struct>
