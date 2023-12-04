@@ -47,7 +47,48 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+
+# Creating a New Tag Guide
+
+This guide outlines the necessary steps to create a new tag in the repository, merging the staging branch into main, creating the new release/tag, and communicating this update to the team.
+
+### Step 1: Merge Staging into Main
+Ensure you have the necessary permissions and are on the correct branch before performing the merge.
+
+```bash
+git checkout main
+git pull origin main
+git merge staging
+
+```
+
+Resolve any conflicts that might arise during the merge process.
+
+```bash
+git push origin main
+
+```
+
+### Step 2: Create a New Release/Tag
+To create a new tag, use the git tag command followed by the version number and a brief description of the changes since the last release.
+
+```bash
+git tag -a v1.0 -m "Description of changes in version 1.0"
+
+```
+Push the created tag to the remote repository:
+
+```bash
+git push origin v1.0
+
+```
+Make sure to replace v1.0 with the tag naming convention you are using.
+
+### Step 3: Communicate with the Team
+Informing the team about the new tag is crucial to keep everyone updated.
+
+
+# Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
