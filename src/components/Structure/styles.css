@@ -9,11 +9,17 @@ section {
 }
 
 footer {
-    background-color: #333;
+    background-color: #480ca8;
     color: #fff;
     text-align: center;
     padding: 10px 0;
     position: absolute;
     bottom: 0;
     width: 100%;
+    opacity: 0.8;
 }
+footer p {
+    color: #fff;
+}
+
+
