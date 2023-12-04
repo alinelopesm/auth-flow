@@ -1,7 +1,7 @@
-import { AuthInfo } from "../types/AuthInfo";
+import { AuthInfo } from "../types/AuthInfoType";
   
   export async function login(username: string, password: string): Promise<AuthInfo | null> {
-    if (username === 'kminchelle' && password === '0lelplR') {
+    if (username === 'aline' && password === '123') {
       return {
         id: 15,
         username: 'kminchelle',

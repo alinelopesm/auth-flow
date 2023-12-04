@@ -1,6 +1,6 @@
 // src/__mocks__/auth.tsx
 import { login } from './api';
-import { User } from '../types/User';
+import { User } from '../types/UserType';
 
 const authenticate = async (username: string, password: string): Promise<boolean> => {
   const user = await login(username, password);
