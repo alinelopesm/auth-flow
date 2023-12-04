@@ -1,7 +1,7 @@
 // userInterface.tsx
 
 /* Interface que define a estrutura do usuário */
-interface User {
+export interface User {
   id: number;
   firstName: string;
   lastName: string;
