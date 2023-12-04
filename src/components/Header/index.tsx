@@ -1,15 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext} from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 const HeaderContent: React.FC = () => {
   const { isLoggedIn, authenticateInfo, logout } = useContext(AuthContext);
-  const [showDropdown, setShowDropdown] = useState(false);
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
 
   return (
     <div className="header">

@@ -1,12 +1,13 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
-import { authenticate } from '../__mocks__/auth';
 import { AuthInfo } from '../types/AuthInfoType';
+import AuthService from '../service/AuthUser';
 
 interface AuthContextProps {
   isLoggedIn: boolean;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
-  authenticateInfo: AuthInfo| null;
+  authenticateInfo: AuthInfo | null;
+  error: string | null;
 }
 
 interface AuthProviderProps {
@@ -18,11 +19,14 @@ const AuthContext = createContext<AuthContextProps>({
   login: async () => {},
   logout: () => {},
   authenticateInfo: null,
+  error: null,
 });
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [authenticateInfo, setAuthenticateInfo] = useState<AuthInfo | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const authService = new AuthService();
 
   useEffect(() => {
     const storedAuthInfo = localStorage.getItem('authInfo');
@@ -35,19 +39,26 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const login = async (username: string, password: string): Promise<void> => {
-    try {
-      const userResponse = await authenticate(username, password);
-
-      if (userResponse) {
-        localStorage.setItem('authInfo', JSON.stringify(userResponse));
-        setAuthenticateInfo(userResponse);
-        setLoggedIn(true);
-      } else {
-        throw new Error('Login inválido');
-      }
-    } catch (error) {
-      console.error('Erro durante o login:', error);
-    }
+    authService
+      .login({
+        username,
+        password,
+      })
+      .then((response) => {
+        console.log('Resposta do login:', response);
+        if (response) {
+          localStorage.setItem('authInfo', JSON.stringify(response));
+          setAuthenticateInfo(response);
+          setLoggedIn(true);
+        } 
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          setError('Login inválido');
+        } else {
+          console.error('Erro ao fazer login:', error);
+        }
+      });
   };
 
   const logout = () => {
@@ -55,10 +66,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('isLoggedIn');
     setAuthenticateInfo(null);
     setLoggedIn(false);
+    setError(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, authenticateInfo }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, authenticateInfo, error }}>
       {children}
     </AuthContext.Provider>
   );
