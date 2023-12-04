@@ -72,13 +72,13 @@ class UserConstructor implements User {
   username: string;
   password: string;
 
-  constructor(user: User) {
-    this.id = user.id;
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
-    this.email = user.email;
-    this.username = user.username;
-    this.password = user.password;
+  constructor(user?: User) {
+    this.id = user?.id || 0;
+    this.firstName = user?.firstName || '';
+    this.lastName = user?.lastName || '';
+    this.email = user?.email || '';
+    this.username = user?.username || '';
+    this.password = user?.password || '';
   }
 }
 

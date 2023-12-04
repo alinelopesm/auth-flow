@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { authenticate, getUser } from '../../__mocks__/auth';
 import UserInfo from '../user';
+import AuthInfoConstructor, { AuthInfo } from '../../types/AuthInfoType';
+import UserConstructor, { User } from '../../types/UserType';
 import './index.css';
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState<User>(new UserConstructor())
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,6 +23,7 @@ const LoginForm: React.FC = () => {
         const responseUser = await getUser()
 
         setIsLoggedIn(true);
+        if (responseUser && responseUser !== undefined) setUserInfo(responseUser)
         return responseUser;
       }
     } catch (error) {
@@ -47,7 +51,7 @@ const LoginForm: React.FC = () => {
         <button type="submit">Login</button>
       </form>
     ) : (
-      <UserInfo username={username} />
+      <UserInfo userInfo={userInfo} />
     )}
   </div>
   );
