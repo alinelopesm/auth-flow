@@ -10,45 +10,39 @@ jest.mock('../../__mocks__/auth', () => ({
 
 describe('LoginForm', () => {
   it('submete o formulário com as credenciais corretas', async () => {
-    const { getByLabelText, getByText } = render(<LoginForm />);
+    const { getByPlaceholderText, queryByText } = render(<LoginForm />);
 
-    const usernameInput = getByLabelText('Username:') as HTMLInputElement;
-    const passwordInput = getByLabelText('Password:') as HTMLInputElement;
-    const submitButton = getByText('Login');
+    const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
+    const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
 
     // Preencher os campos do formulário
     fireEvent.change(usernameInput, { target: { value: 'kminchelle' } });
     fireEvent.change(passwordInput, { target: { value: '0lelplR' } });
 
-    // Submeter o formulário
-    fireEvent.click(submitButton);
-
-    // Verificar se a função authenticate foi chamada corretamente
+    // Verificar se a função authenticate foi chamada corretamente ao submeter o formulário
     await waitFor(() => {
-      expect(authenticate).toHaveBeenCalledWith('kminchelle', '0lelplR');
+      fireEvent.submit(usernameInput);
     });
+    expect(authenticate).toHaveBeenCalledWith('kminchelle', '0lelplR');
   });
 
   it('exibe erro ao submeter formulário com credenciais inválidas', async () => {
     // Mock para simular um erro na autenticação
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    const { getByLabelText, getByText } = render(<LoginForm />);
+    const { getByPlaceholderText, getByText } = render(<LoginForm />);
 
-    const usernameInput = getByLabelText('Username:') as HTMLInputElement;
-    const passwordInput = getByLabelText('Password:') as HTMLInputElement;
-    const submitButton = getByText('Login');
+    const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
+    const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
 
     // Preencher os campos do formulário
     fireEvent.change(usernameInput, { target: { value: 'kminchelle' } });
     fireEvent.change(passwordInput, { target: { value: 'senhaIncorreta' } });
 
-    // Submeter o formulário
-    fireEvent.click(submitButton);
-
-    // Verificar se a função authenticate foi chamada corretamente
+    // Verificar se a função authenticate foi chamada corretamente ao submeter o formulário
     await waitFor(() => {
-        expect(authenticate).toHaveBeenCalledWith('kminchelle', 'senhaIncorreta');
+      fireEvent.submit(usernameInput);
     });
+    expect(authenticate).toHaveBeenCalledWith('kminchelle', 'senhaIncorreta');
   });
 });
