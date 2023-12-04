@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { authenticate, getUser } from '../../__mocks__/auth';
-import UserInfo from '../user';
-import UserConstructor, { User } from '../../types/UserType';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userInfo, setUserInfo] = useState<User>(new UserConstructor())
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const LoginForm: React.FC = () => {
         const responseUser = await getUser()
 
         setIsLoggedIn(true);
-        if (responseUser && responseUser !== undefined) setUserInfo(responseUser)
+        if (responseUser) navigate('/', { state: { user: responseUser } });
         return responseUser;
       }
     } catch (error) {
@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="login-container">
-    {!isLoggedIn ? (
+    {!isLoggedIn &&
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <input
@@ -49,9 +49,7 @@ const LoginForm: React.FC = () => {
         />
         <button type="submit">Login</button>
       </form>
-    ) : (
-      <UserInfo userInfo={userInfo} />
-    )}
+    }
   </div>
   );
 };
