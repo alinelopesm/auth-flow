@@ -1,17 +1,7 @@
-// __mocks__/api.ts
-interface User {
-    id: number;
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    gender: string;
-    image: string;
-    token: string;
-}
+import { AuthInfo } from "../types/AuthInfoType";
   
-  export async function login(username: string, password: string): Promise<User | null> {
-    if (username === 'kminchelle' && password === '0lelplR') {
+  export async function login(username: string, password: string): Promise<AuthInfo | null> {
+    if (username === 'aline' && password === '123') {
       return {
         id: 15,
         username: 'kminchelle',
