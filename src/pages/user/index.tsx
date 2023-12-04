@@ -1,37 +1,41 @@
 import React from 'react';
 import { User } from '../../types/UserType';
 import './index.css'
+import { AuthInfo } from '../../types/AuthInfoType';
 
 interface UserInfoProps {
-  userInfo: User;
+  userInfo?: User | null
+  authInfo: AuthInfo | null
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ userInfo }) => {
+const UserInfo: React.FC<UserInfoProps> = ({ userInfo, authInfo }) => {
+  const user = userInfo || authInfo
   return (
+    user &&
     <div className="user-info-container">
       <div className="user-info">
         <h2>Informações do Usuário</h2>
         <div className="user-details">
           <div className="user-avatar">
-            {userInfo.image ? (
-              <img src={userInfo.image} alt="User Avatar" />
+            {user.image ? (
+              <img src={user.image} alt="User Avatar" />
             ) : (
-              <div className="default-avatar">{userInfo.firstName.charAt(0)}</div>
+              <div className="default-avatar">{user.firstName.charAt(0)}</div>
             )}
           </div>
           <div className="user-data">
             <p>
-              <strong>Nome:</strong> {userInfo.firstName} {userInfo.lastName}
+              <strong>Nome:</strong> {user.firstName} {user.lastName}
             </p>
             <p>
-              <strong>Username:</strong> {userInfo.username}
+              <strong>Username:</strong> {user.username}
             </p>
             <p>
-              <strong>Email:</strong> {userInfo.email}
+              <strong>Email:</strong> {user.email}
             </p>
-            {userInfo.gender && (
+            {user.gender && (
               <p>
-                <strong>Gênero:</strong> {userInfo.gender}
+                <strong>Gênero:</strong> {user.gender}
               </p>
             )}
           </div>

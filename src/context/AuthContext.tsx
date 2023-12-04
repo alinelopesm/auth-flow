@@ -1,39 +1,64 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
+import { authenticate } from '../__mocks__/auth';
+import { AuthInfo } from '../types/AuthInfoType';
 
 interface AuthContextProps {
   isLoggedIn: boolean;
-  login: () => void;
+  login: (username: string, password: string) => Promise<void>;
   logout: () => void;
+  authenticateInfo: AuthInfo| null;
 }
 
 interface AuthProviderProps {
   children: ReactNode;
-  // ... outras propriedades necessárias
 }
 
 const AuthContext = createContext<AuthContextProps>({
   isLoggedIn: false,
-  login: () => {},
+  login: async () => {},
   logout: () => {},
+  authenticateInfo: null,
 });
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [authenticateInfo, setAuthenticateInfo] = useState<AuthInfo | null>(null);
 
-  const login = () => {
-    // Adicione lógica de login aqui, por exemplo:
-    // autenticação, configuração de estado, etc.
-    setLoggedIn(true);
+  useEffect(() => {
+    const storedAuthInfo = localStorage.getItem('authInfo');
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+
+    if (storedAuthInfo && storedIsLoggedIn) {
+      setAuthenticateInfo(JSON.parse(storedAuthInfo));
+      setLoggedIn(true);
+    }
+  }, []);
+
+  const login = async (username: string, password: string): Promise<void> => {
+    try {
+      const userResponse = await authenticate(username, password);
+
+      if (userResponse) {
+        localStorage.setItem('authInfo', JSON.stringify(userResponse));
+        setAuthenticateInfo(userResponse);
+        setLoggedIn(true);
+      } else {
+        throw new Error('Login inválido');
+      }
+    } catch (error) {
+      console.error('Erro durante o login:', error);
+    }
   };
 
   const logout = () => {
-    // Adicione lógica de logout aqui, por exemplo:
-    // limpar autenticação, limpar estado, etc.
+    localStorage.removeItem('authInfo');
+    localStorage.removeItem('isLoggedIn');
+    setAuthenticateInfo(null);
     setLoggedIn(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, authenticateInfo }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { authenticate, getUser } from '../../__mocks__/auth';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
+import { AuthContext } from '../../context/AuthContext';
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const { isLoggedIn, login, authenticateInfo } = useContext(AuthContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,14 +17,8 @@ const LoginForm: React.FC = () => {
 
   async function handleLogin(username: string, password: string) {
     try {
-      const response = await authenticate(username, password);
-      if(response) {
-        const responseUser = await getUser()
-
-        setIsLoggedIn(true);
-        if (responseUser) navigate('/', { state: { user: responseUser } });
-        return responseUser;
-      }
+      login(username, password)
+      navigate('/');
     } catch (error) {
       console.error('Erro durante o login:', error);
     }
