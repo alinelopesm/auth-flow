@@ -17,8 +17,6 @@ module.exports = {
     ],
     plugins: ['react', '@typescript-eslint'],
     rules: {
-      'semi': ['error', 'always'], // Ponto e vírgula ao final
-      'quotes': ['error', 'single'], // Aspas simples
       '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions', 'functions', 'methods'] }],
       // Outras regras personalizadas ou do mercado
     },
