@@ -1,16 +1,23 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import LoginForm from './index';
-import { authenticate } from '../../__mocks__/auth';
+import { authenticate, getUser } from '../../__mocks__/auth';
 
 // Mock da função authenticate
 jest.mock('../../__mocks__/auth', () => ({
   authenticate: jest.fn().mockResolvedValue('token'),
+  getUser: jest.fn().mockResolvedValue({ username: 'kminchelle' }),
 }));
 
 describe('LoginForm', () => {
   it('submete o formulário com as credenciais corretas', async () => {
-    const { getByPlaceholderText } = render(<LoginForm />);
+    const { getByPlaceholderText } = render(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>
+    );
+
 
     const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
     const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
@@ -30,7 +37,12 @@ describe('LoginForm', () => {
     // Mock para simular um erro na autenticação
     jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    const { getByPlaceholderText } = render(<LoginForm />);
+    const { getByPlaceholderText } = render(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>
+    );
+
 
     const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
     const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;

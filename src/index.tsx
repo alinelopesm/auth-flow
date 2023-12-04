@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthContext';
+import Routes from './routes';
 
 const rootElement = document.getElementById('root');
 
@@ -13,7 +13,7 @@ if (rootElement) {
   root.render(
     <React.StrictMode>
       <AuthProvider>
-        <App />
+        <Routes />
       </AuthProvider>
     </React.StrictMode>
   );
