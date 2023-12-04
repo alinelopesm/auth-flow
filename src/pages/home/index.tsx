@@ -1,16 +1,20 @@
 import React, { useContext } from 'react';
 import UserInfo from '../user';
 import { AuthContext } from '../../context/AuthContext';
+import Struct from '../../components/Structure/Struct';
 
 const Home: React.FC = () => {
   const { isLoggedIn, authenticateInfo, logout} = useContext(AuthContext);
 
-  return isLoggedIn
-  ? <>
-     <UserInfo authInfo={authenticateInfo}/> 
-     <button onClick={logout}>Logout</button>
-  </>
-  : <>Faça Login</>
+  return (
+    <Struct>
+      {isLoggedIn ?
+        <UserInfo authInfo={authenticateInfo}/> 
+        :
+        <>Faça</>
+      }
+    </Struct>
+  )
 };
 
 export default Home;

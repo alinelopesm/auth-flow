@@ -1,0 +1,41 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.1);
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+    background-color: transparent; 
+    border: none;
+  }
+  
+  .login-link {
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: border-bottom-color 0.3s ease;
+  }
+  
+  .login-link:hover {
+    border-bottom: 2px solid #fff;
+    background: transparent;
+  }
+  
