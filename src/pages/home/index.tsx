@@ -1,13 +1,25 @@
-// pages/Home.tsx
-import React from 'react';
-import UserInfo from '../user';
-import { useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import UserAuthInfo from '../../components/User/UserAuthInfo';
+import { AuthContext } from '../../context/AuthContext';
+import Struct from '../../components/Structure/Struct';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const location = useLocation();
-  const user = location.state?.user;
+  const { isLoggedIn, authenticateInfo } = useContext(AuthContext);
 
-  return <UserInfo userInfo={user} />;
+  return (
+    <Struct>
+      {isLoggedIn ?
+        <UserAuthInfo authInfo={authenticateInfo}/> 
+        :
+        <div style={{ textAlign: 'center', marginTop: '50px'}}>
+          <h1>Oops!</h1>
+          <p>Para visualizar os dados do usuário, é necessário fazer login</p>
+          <Link to="/login">Faça o Login</Link>
+        </div>
+      }
+    </Struct>
+  )
 };
 
 export default Home;

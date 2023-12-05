@@ -1,44 +1,29 @@
-import React from 'react';
-import { User } from '../../types/UserType';
-import './index.css'
+import React, { useContext } from 'react';
+import UserAuthInfo from '../../components/User/UserAuthInfo';
+import { AuthContext } from '../../context/AuthContext';
+import Struct from '../../components/Structure/Struct';
+import { Link } from 'react-router-dom';
 
-interface UserInfoProps {
-  userInfo: User;
-}
+const User: React.FC = () => {
+  const { isLoggedIn, authenticateInfo } = useContext(AuthContext);
 
-const UserInfo: React.FC<UserInfoProps> = ({ userInfo }) => {
   return (
-    <div className="user-info-container">
-      <div className="user-info">
-        <h2>Informações do Usuário</h2>
-        <div className="user-details">
-          <div className="user-avatar">
-            {userInfo.image ? (
-              <img src={userInfo.image} alt="User Avatar" />
-            ) : (
-              <div className="default-avatar">{userInfo.firstName.charAt(0)}</div>
-            )}
-          </div>
-          <div className="user-data">
-            <p>
-              <strong>Nome:</strong> {userInfo.firstName} {userInfo.lastName}
-            </p>
-            <p>
-              <strong>Username:</strong> {userInfo.username}
-            </p>
-            <p>
-              <strong>Email:</strong> {userInfo.email}
-            </p>
-            {userInfo.gender && (
-              <p>
-                <strong>Gênero:</strong> {userInfo.gender}
-              </p>
-            )}
-          </div>
+    <Struct>
+      {isLoggedIn ?
+        <>
+          <UserAuthInfo authInfo={authenticateInfo}/> 
+
+          Informações completas do usuário:
+        </>
+        :
+        <div style={{ textAlign: 'center', marginTop: '50px'}}>
+          <h1>Oops!</h1>
+          <p>Para visualizar os dados do usuário, é necessário fazer login</p>
+          <Link to="/login">Faça o Login</Link>
         </div>
-      </div>
-    </div>
-  );
+      }
+    </Struct>
+  )
 };
 
-export default UserInfo;
+export default User;

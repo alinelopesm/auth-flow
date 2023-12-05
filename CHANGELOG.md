@@ -31,3 +31,8 @@ Este arquivo serve como um registro das alterações feitas no projeto ao longo 
 - **Adicionado:** [Inicia rotas](https://github.com/alinelopesm/auth-flow/commit/3629aab31f071e889f18647059c9dad452479872)
 - **Adicionado:** [Tela home e sobre](https://github.com/alinelopesm/auth-flow/commit/edf9773b19fed7c6d91b55e4ca5e9870dc37a050)
 - **Modificado: ** [adiciona contexto de roteamento para o componente LoginForm TEST](https://github.com/alinelopesm/auth-flow/pull/17/commits/cc86f992ba6ca9a408166baf3496fb170e9fa5e6)
+
+## [Versão 1.0.0] - Lançamento
+- **Adicionado:** [Adicona autenticação](https://github.com/alinelopesm/auth-flow/pull/22/commits/36a30e1def769d6fbe282db7dd6f8079de12d17e)
+- **Adicionado:** [Ajusta dados para mostar na home e estrutura tela](https://github.com/alinelopesm/auth-flow/pull/22/commits/b1a5111191b84985f251992f8739b0c66747ab37)
+- **Adicionado:** [Adiciona service](https://github.com/alinelopesm/auth-flow/pull/22/commits/81e8f4de8c19331c57e5500f8789c5996d31ff31)
