@@ -1,3 +1,5 @@
+import { AuthInfo } from "../types/AuthInfoType";
+
 interface LoginCredentials {
   username: string;
   password: string;
@@ -11,7 +13,7 @@ class AuthService {
     this.baseURL = process.env.BASE_URL || 'https://dummyjson.com';
   }
 
-  async login(credentials: LoginCredentials): Promise<any> {
+  async login(credentials: LoginCredentials): Promise<AuthInfo> {
     const { username, password, expiresInMins } = credentials;
 
     const body = JSON.stringify({

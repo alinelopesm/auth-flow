@@ -1,21 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import AppRoutes from './index';
-import { MemoryRouter } from 'react-router-dom';
 
 test('renders routes without crashing', () => {
-  render(
-    <MemoryRouter initialEntries={['/']}>
-      <AppRoutes />
-    </MemoryRouter>
-  );
+  render(<AppRoutes />);
 });
   
-test('renders About component for /about route', () => {
-  render(
-    <MemoryRouter initialEntries={['/about']}>
-      <AppRoutes />
-    </MemoryRouter>
-  );
-  expect(screen.getByText('About')).toBeInTheDocument(); // Altere 'About' para o texto relevante na página About
+test('renders home ande header', () => {
+  render(<AppRoutes />);
+  expect(screen.getByText('Boas vindas!!')).toBeInTheDocument();
 });
