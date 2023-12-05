@@ -7,16 +7,14 @@ import LoginForm from '../pages/form';
 
 const AppRoutes: React.FC = () => {
   return (
-    <Router>
-      <App>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/user" element={<LoginForm />} />
-        </Routes>
-      </App>
-    </Router>
+    <App>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/user" element={<LoginForm />} />
+      </Routes>
+    </App>
   );
 };
 
