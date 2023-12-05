@@ -25,3 +25,5 @@ const User: React.FC = () => {
     </Struct>
   )
 };
+
+export default User;

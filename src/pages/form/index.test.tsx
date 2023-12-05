@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import LoginForm from './index';
 import { AuthContext } from '../../context/AuthContext';
 import { AUTH_CONTEXT_OK } from '../../__mocks__/authContextMock';
