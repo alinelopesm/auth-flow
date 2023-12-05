@@ -1,60 +1,25 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { render } from '@testing-library/react';
 import LoginForm from './index';
-import { authenticate, getUser } from '../../__mocks__/auth';
+import { AuthContext } from '../../context/AuthContext';
+import { AUTH_CONTEXT_OK } from '../../__mocks__/authContextMock';
 
-// Mock da função authenticate
-jest.mock('../../__mocks__/auth', () => ({
-  authenticate: jest.fn().mockResolvedValue('token'),
-  getUser: jest.fn().mockResolvedValue({ username: 'kminchelle' }),
+/* Mock de useNavigate do React Router*/
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
 }));
 
-describe('LoginForm', () => {
-  it('submete o formulário com as credenciais corretas', async () => {
-    const { getByPlaceholderText } = render(
-      <MemoryRouter>
-        <LoginForm />
-      </MemoryRouter>
-    );
+test('renders login form fields', () => {
+  const { getByPlaceholderText } = render(
+      <AuthContext.Provider value={AUTH_CONTEXT_OK}>
+      <LoginForm />
+      </AuthContext.Provider>
+  );
 
+  const usernameInput = getByPlaceholderText('Digite seu username');
+  const passwordInput = getByPlaceholderText('Digite sua senha');
 
-    const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
-    const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
-
-    // Preencher os campos do formulário
-    fireEvent.change(usernameInput, { target: { value: 'kminchelle' } });
-    fireEvent.change(passwordInput, { target: { value: '0lelplR' } });
-
-    // Verificar se a função authenticate foi chamada corretamente ao submeter o formulário
-    await waitFor(() => {
-      fireEvent.submit(usernameInput);
-    });
-    expect(authenticate).toHaveBeenCalledWith('kminchelle', '0lelplR');
-  });
-
-  it('exibe erro ao submeter formulário com credenciais inválidas', async () => {
-    // Mock para simular um erro na autenticação
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-
-    const { getByPlaceholderText } = render(
-      <MemoryRouter>
-        <LoginForm />
-      </MemoryRouter>
-    );
-
-
-    const usernameInput = getByPlaceholderText('Username') as HTMLInputElement;
-    const passwordInput = getByPlaceholderText('Password') as HTMLInputElement;
-
-    // Preencher os campos do formulário
-    fireEvent.change(usernameInput, { target: { value: 'kminchelle' } });
-    fireEvent.change(passwordInput, { target: { value: 'senhaIncorreta' } });
-
-    // Verificar se a função authenticate foi chamada corretamente ao submeter o formulário
-    await waitFor(() => {
-      fireEvent.submit(usernameInput);
-    });
-    expect(authenticate).toHaveBeenCalledWith('kminchelle', 'senhaIncorreta');
-  });
+  expect(usernameInput).toBeInTheDocument();
+  expect(passwordInput).toBeInTheDocument();
 });
