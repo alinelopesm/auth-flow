@@ -1,49 +1,27 @@
-import React from 'react';
-import { User } from '../../types/UserType';
-import './index.css';
-import { AuthInfo } from '../../types/AuthInfoType';
+import React, { useContext } from 'react';
+import UserAuthInfo from '../../components/User/UserAuthInfo';
+import { AuthContext } from '../../context/AuthContext';
+import Struct from '../../components/Structure/Struct';
+import { Link } from 'react-router-dom';
 
-interface UserInfoProps {
-  userInfo?: User | null;
-  authInfo: AuthInfo | null;
-}
+const User: React.FC = () => {
+  const { isLoggedIn, authenticateInfo } = useContext(AuthContext);
 
-const UserInfo: React.FC<UserInfoProps> = ({ userInfo, authInfo }) => {
-  const user = userInfo || authInfo;
   return (
-    user && (
-      <div className="user-info-container">
-        <div className="user-info">
-          <h2 className="card-title">Informações do Usuário</h2>
-          <div className="user-details">
-            <div className="user-avatar">
-              {user.image ? (
-                <img src={user.image} alt="User Avatar" />
-              ) : (
-                <div className="default-avatar">{user.firstName.charAt(0)}</div>
-              )}
-            </div>
-            <div className="user-data">
-              <p>
-                <strong>Nome:</strong> {user.firstName} {user.lastName}
-              </p>
-              <p>
-                <strong>Username:</strong> {user.username}
-              </p>
-              <p>
-                <strong>Email:</strong> {user.email}
-              </p>
-              {user.gender && (
-                <p>
-                  <strong>Gênero:</strong> {user.gender}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  );
-};
+    <Struct>
+      {isLoggedIn ?
+        <>
+          <UserAuthInfo authInfo={authenticateInfo}/> 
 
-export default UserInfo;
+          Informações completas do usuário:
+        </>
+        :
+        <div style={{ textAlign: 'center', marginTop: '50px'}}>
+          <h1>Oops!</h1>
+          <p>Para visualizar os dados do usuário, é necessário fazer login</p>
+          <Link to="/login">Faça o Login</Link>
+        </div>
+      }
+    </Struct>
+  )
+};

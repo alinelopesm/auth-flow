@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import UserInfo from '../user';
+import UserAuthInfo from '../../components/User/UserAuthInfo';
 import { AuthContext } from '../../context/AuthContext';
 import Struct from '../../components/Structure/Struct';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   return (
     <Struct>
       {isLoggedIn ?
-        <UserInfo authInfo={authenticateInfo}/> 
+        <UserAuthInfo authInfo={authenticateInfo}/> 
         :
         <div style={{ textAlign: 'center', marginTop: '50px'}}>
           <h1>Oops!</h1>

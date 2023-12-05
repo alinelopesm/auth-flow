@@ -30,7 +30,7 @@ test('renders UserInfo when user is logged in', () => {
     </MemoryRouter>
   );
 
-  const userInfoElement = getByText('Informações do Usuário');
+  const userInfoElement = getByText('Informações de autenticação do Usuário');
   expect(userInfoElement).toBeInTheDocument();
 });
 
